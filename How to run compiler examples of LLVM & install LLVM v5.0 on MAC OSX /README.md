@@ -39,7 +39,8 @@ now you’ll see you can edit a file, add this line:
 
 (then press `i` to insert/edit, and press `esc` button to exit edit mode and press `:` and press `wq` and press `enter`). Ok, now you have  successfully mastered the techniques of vi.
 
-copy code1.4.2 below to your terminal.
+copy code1.4.2 below to your terminal. 
+code1.4.2 
 `source ~/.bash_profile`
 
 to test if’s configured, use code1.4.3
@@ -100,11 +101,11 @@ code 1.5.5
 now you can use clang++ and llvm tools which can be really helpful. But if your program includes the header/.h files from llvm tools. You need to do things like this 
 
 code 1.6.1
-`clang++ -c main.cpp `llvm-config --cflags --ldflags --libs -o ./main``
+`clang++ -c main.cpp \`llvm-config --cflags --ldflags --libs -o ./main\``
 
 to compile your file, otherwise it will throw errors. 
 then you can simple enter `main` in your terminal to run main.cpp.
-But i am not gonna say much things about this. I will focus on how to use the compiler examples that LLVM has to offer us.
+But i am not gonna say many things about clang++ . I will focus on how to use the compiler examples that LLVM has to offer us.
 
 
 .Step	7	Try BrainF (BrainFuck actually) and Kaleidoscpoe compiler. 
@@ -129,7 +130,7 @@ just wait for a while. And you’ll see a file created in the folder:
 `/usr/local/llvm/build/bin`
 
 code1.7.3 
-`BrainF [filename]`
+`BrainF [+filename]`
 
 then you can run this executable file by using code 1.7.3.
 
