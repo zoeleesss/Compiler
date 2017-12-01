@@ -101,7 +101,7 @@ code 1.5.5
 now you can use clang++ and llvm tools which can be really helpful. But if your program includes the header/.h files from llvm tools. You need to do things like this 
 
 code 1.6.1
-`clang++ -c main.cpp `\``llvm-config --cflags --ldflags --libs -o ./main\``
+`clang++ -c main.cpp ``\`llvm-config --cflags --ldflags --libs -o ./main\``
 
 to compile your file, otherwise it will throw errors. 
 then you can simple enter `main` in your terminal to run main.cpp.
