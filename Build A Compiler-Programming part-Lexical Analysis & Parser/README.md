@@ -58,7 +58,11 @@
  - expr3 -> (expr)
  - |    expr
  ## identifier ##
- -identifier -> x,y,z 等int or double 型变量
+ - identifier -> x,y,z 等int or double 型变量
+ 
+ ## type ##
+ - type -> int | double
+ 
  ## 测试以上文法的正确性 ##
  
  Demo:
