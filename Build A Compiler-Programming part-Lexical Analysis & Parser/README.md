@@ -12,29 +12,29 @@
 
  - stmts -> stmtstmts  
 
- - |    null
+ - |    	null
 
 <h2> stmt </h2>
 
  - stmt -> identifier=expr~stmts
 
- - |    type identifier~stmts
+ - |    	type identifier~stmts
 
- - |    type identifier=expr~stmts
+ - |   		type identifier=expr~stmts
 
- - |    identifier=expr~stmts
+ - |    	identifier=expr~stmts
 
- - |    if (expr){stmts}stmts
+ - |    	if (expr){stmts}stmts
 
- - |    if (expr){stmts}else{stmts}stmts
+ - |    	if (expr){stmts}else{stmts}stmts
 
- - |    while(expr){loop_stmts}stmts
+ - |    	while(expr){loop_stmts}stmts
 
- - |    def identifier(def_args){func_stmts}stmts
+ - |    	def identifier(def_args){func_stmts}stmts
 
- - |    identifier(call_args)stmts
+ - |    	identifier(call_args)stmts
 
- - |    identifier=identifier(call_args)stmts
+ - |    	identifier=identifier(call_args)stmts
 
  - |    type identifier=identifier(call_args)stmts
 
