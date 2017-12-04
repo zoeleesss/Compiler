@@ -4,17 +4,17 @@
 
 
 
-`PARSER`
+<h1>`PARSER`</h1>
 
-### program ###
+<h2> program </h2>
  - program -> stmts
 
  
-### stmts ###
+<h2> stmts </h2>
  - stmts -> stmtstmts
  - |    null
 
-# stmt #
+<h2> stmt </h2>
  - stmt -> identifier=expr~stmts
  - |    type identifier~stmts
  - |    type identifier=expr~stmts
@@ -31,28 +31,25 @@
  - |    break~stmts
  - |    return expr~stmts
  
-## space ##
- - |	space
 
- ## def_args ##
+ <h2> def_args </h2>
  
  - def_args -> type identifier def_arg
  - |    null
  
- ## def_arg ##
- - def_arg -> , def_agrs
+ <h2> def_arg </h2>
+ - def_arg -> , def_args
  - |    null
  
- ## call_args ##
- 
+ <h2> call_args </h2>
  - call_args -> expr call_arg
  - |    null
  
- ## call_arg ##
- - call_agr -> ,call_args
+ <h2> call_arg </h2>
+ - call_arg -> ,call_args
  - |    null
  
- ## expr ##
+ <h2> expr </h2>
  - expr -> int_type
  - |    double_type 
  - |    expr + or - expr2
@@ -60,19 +57,19 @@
  - |    identifier
  - |	null
 
- ## expr2 ##
+ <h2> expr2 </h2>
  - expr2 -> expr * or / expr3
  - |    expr3
- ## expr3 ##
+ <h2> expr3 </h2>
  - expr3 -> (expr)
  - |    expr
- ## identifier ##
+ <h2> identifier </h2>
  - identifier -> x,y,z 等int or double 型变量
  
- ## type ##
+ <h2> type </h2>
  - type -> int | double
  
- ## 测试以上文法的正确性 ##
+ <h2> 测试以上文法的正确性 </h2>
  
  Demo:
  
