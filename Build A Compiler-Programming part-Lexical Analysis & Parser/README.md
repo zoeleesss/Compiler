@@ -1,5 +1,9 @@
 
-```
+```c
+
+
+
+
 `PARSER`
 
 ## program ##
@@ -27,6 +31,9 @@
  - |    break~stmts
  - |    return expr~stmts
  
+## space ##
+ - |	space
+
  ## def_args ##
  
  - def_args -> type identifier def_arg
@@ -51,6 +58,8 @@
  - |    expr + or - expr2
  - |    expr2
  - |    identifier
+ - |	null
+
  ## expr2 ##
  - expr2 -> expr * or / expr3
  - |    expr3
@@ -122,9 +131,11 @@ def sub(int x,int y)
 }
 while(x-2)
 {
-    if(x+y/2){<<x-4*(y+1)<<sub(x,x+2)~} 
+    if(x+y/2){<<x-4*(y+1)~<<sub(x,x+2)~} 
     if(x-10){x=x+y~break~}
 }
+
+
 Done!!!
 
 
