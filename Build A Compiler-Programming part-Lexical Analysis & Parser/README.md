@@ -18,15 +18,15 @@
 
  - stmt -> identifier=expr~stmts
 
- - |    	type identifier~stmts
+ - |    \t	type identifier~stmts
 
  - |   		type identifier=expr~stmts
 
- - |    	identifier=expr~stmts
+ - |    \n	identifier=expr~stmts
 
  - |    	if (expr){stmts}stmts
 
- - |    	if (expr){stmts}else{stmts}stmts
+ - |     	if (expr){stmts}else{stmts}stmts
 
  - |    	while(expr){loop_stmts}stmts
 
@@ -138,10 +138,11 @@
 
 
 
- ###Test Demo:
+ <h3>Test Demo:</h3>
 ```c++
 
 program->stmts->def identifier(def_args){stmts}stmts
+
 ->def sub(int xdef_argdef_args){stmtstmts}
 while(expr){stmts}stmts
 
@@ -170,8 +171,7 @@ if(x-10){x=x+y~break~stmts}null}
 while(x-2){if(x+y/2){<<x-4*(y+1)<<sub(x,x+2null)~}
 if(x-10){x=x+y~break~null}}
 
-->
-def sub(int x,int y)
+->def sub(int x,int y)
 {
     y=y-1~return (x-y)*2~
 }
@@ -181,9 +181,7 @@ while(x-2)
     if(x-10){x=x+y~break~}
 }
 
-
-Done!!!
-
-
-
 ```
+
+<h4>Done!!!</h4>
+
