@@ -6,15 +6,15 @@
 
 `PARSER`
 
-## program ##
+### program ###
  - program -> stmts
 
  
- ## stmts ##
+### stmts ###
  - stmts -> stmtstmts
  - |    null
 
-## stmt ##
+# stmt #
  - stmt -> identifier=expr~stmts
  - |    type identifier~stmts
  - |    type identifier=expr~stmts
