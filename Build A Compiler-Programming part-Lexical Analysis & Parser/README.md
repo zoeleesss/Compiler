@@ -100,13 +100,13 @@
 
  <h2> identifier </h2>
 
- - identifier -> x,y,z 等int or double 型变量
+ - identifier -> x,y,z.. variables belong to int or double
  
  <h2> type </h2>
 
  - type -> int | double
  
- <h2> 测试以上文法的正确性 </h2>
+ <h2> Test if any program qualifies the grammar </h2>
  
  <h3>Demo:</h3>
 
