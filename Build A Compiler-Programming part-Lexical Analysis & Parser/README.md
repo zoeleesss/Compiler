@@ -28,9 +28,9 @@
 
  - |	if (expr){stmts}else{stmts}stmts
 
- - |	while(expr){loop_stmts}stmts
+ - |	while(expr){stmts}stmts
 
- - |	def identifier(def_args){func_stmts}stmts
+ - |	def identifier(def_args){stmts}stmts
 
  - |	identifier(call_args)~stmts
 
