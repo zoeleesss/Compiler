@@ -32,13 +32,13 @@
 
  - |	def identifier(def_args){func_stmts}stmts
 
- - |	identifier(call_args)stmts
+ - |	identifier(call_args)~stmts
 
- - |	identifier=identifier(call_args)stmts
+ - |	identifier=identifier(call_args)~stmts
 
- - |    type identifier=identifier(call_args)stmts
+ - |    type identifier=identifier(call_args)~stmts
 
- - |    <<identifier(call_args)stmts
+ - |    <<identifier(call_args)~stmts
 
  - |    <<expr~stmts
 
@@ -156,7 +156,7 @@ while(expr){stmts}stmts
 ->def sub(int x,int y){y=y-1~return expr~}
 while(x-2){stmtstmts}null
 
-->def sub(int x,int y){y=y-1~return (expr)*expr3}
+->def sub(int x,int y){y=y-1~return (expr)*expr3~}
 while(x-2){if(expr){stmts}stmtstmts}
 
 ->def sub(int x,int y)
