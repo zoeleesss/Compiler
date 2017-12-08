@@ -105,6 +105,12 @@
  <h2> type </h2>
 
  - type -> int | double
+
+ <h2> int_type , double_type </h2>
+
+ - int_type -> integer number like 2 , -4 ,  21
+
+ - double_type -> double number like -3.1 , 0.32 , 21.002
  
  <h2> Test if any program qualifies the grammar </h2>
  
