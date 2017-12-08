@@ -161,21 +161,21 @@ while(x-2){if(expr){stmts}stmtstmts}
 
 ->def sub(int x,int y)
 {y=y-1~return (identifier-identifier)*int_type~}
-while(x-2){if(x+y/2){<<exprstmts}if(expr){stmts}stmts}
+while(x-2){if(x+y/2){<<expr~stmts}if(expr){stmts}stmts}
 
 ->def sub(int x,int y)
 {y=y-1~return (x-y)*2~}
-while(x-2){if(x+y/2){<<x-4*(y+1)<<identifier(call_args)~stmts}
+while(x-2){if(x+y/2){<<x-4*(y+1)~<<identifier(call_args)~stmts}
 if(x-10){identifier=expr~stmts}null}
 
 ->def sub(int x,int y)
 {y=y-1~return (x-y)*2~}
-while(x-2){if(x+y/2){<<x-4*(y+1)<<sub(exprcall_arg)~null}
+while(x-2){if(x+y/2){<<x-4*(y+1)~<<sub(exprcall_arg)~null}
 if(x-10){x=x+y~break~stmts}null}
 
 ->def sub(int x,int y)
 {y=y-1~return (x-y)*2~}
-while(x-2){if(x+y/2){<<x-4*(y+1)<<sub(x,x+2null)~}
+while(x-2){if(x+y/2){<<x-4*(y+1)~<<sub(x,x+2null)~}
 if(x-10){x=x+y~break~null}}
 
 ->def sub(int x,int y)
