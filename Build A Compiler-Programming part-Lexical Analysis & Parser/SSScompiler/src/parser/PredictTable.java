@@ -190,14 +190,7 @@ public class PredictTable {
                      /*** e.g  T->FD ***/
                 } else if (type.equals("nonTerminal")) {
 
-                    /*** for each terminal t in First(FD) , add Table[T,t] = generator
-                     *
-                     *
-                     *  First 集合 你写一下吧？然后给我一个 function 调用的接口？？？
-                     *  辛苦辛苦！
-                     *
-                     *
-                     * ***/
+                    /*** for each terminal t in First(FD) , add Table[T,t] = generator  ***/
 
 
 
@@ -250,21 +243,26 @@ public class PredictTable {
             System.out.println("key="+entry.getKey()+","+"value="+entry.getValue());
         }
 
-
-
-
-
-
-
-
-
-
-
-
         return table;
     }
 
+    public void printTable(String [][]table,int x,int y)
+    {
+        System.out.println("\n ");
+        for (int i=0;i<x;i++)
+        {
 
+            for (int j=0;j<y;j++)
+            {
+                System.out.print(table[x][y]+"\t");
+
+            }
+            System.out.println(" ");
+
+        }
+        System.out.println("\n ");
+
+    }
 
 
 

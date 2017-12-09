@@ -1,0 +1,40 @@
+program->stmts
+stmts->stmtstmts
+stmts->null
+stmt->identifier=expr~stmts
+stmt->type identifier~stmts
+stmt->type identifier=expr~stmts
+stmt->identifier=expr~stmts
+stmt->if (expr){stmts}stmts
+stmt->if (expr){stmts}else{stmts}stmts
+stmt->while(expr){stmts}stmts
+stmt->def identifier(def_args){stmts}stmts
+stmt->identifier(call_args)~stmts
+stmt->identifier=identifier(call_args)~stmts
+stmt->typeidentifier=identifier(call_args)~stmts
+stmt-><<identifier(call_args)~stmts
+stmt-><<expr~stmts
+stmt->break~stmts
+stmt->returnexpr~stmts
+def_args->typeidentifierdef_arg
+def_args->null
+def_arg->,def_args
+def_arg->null
+call_args->exprcall_arg
+call_args->null
+call_arg->,call_args
+call_arg->null
+expr->int_type
+expr->double_type
+expr->expr2+expr
+expr->expr2-expr
+expr->expr2
+expr->identifier
+expr->null
+expr2->expr*expr3
+expr2->expr/expr3
+expr2->expr3
+expr3->(expr)
+expr3->expr
+type->int
+type->double
