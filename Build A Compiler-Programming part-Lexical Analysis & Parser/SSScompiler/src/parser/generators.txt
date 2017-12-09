@@ -2,13 +2,13 @@ program->stmts
 stmts->stmtstmts
 stmts->null
 stmt->identifier=expr~stmts
-stmt->type identifier~stmts
-stmt->type identifier=expr~stmts
+stmt->typeidentifier~stmts
+stmt->typeidentifier=expr~stmts
 stmt->identifier=expr~stmts
-stmt->if (expr){stmts}stmts
-stmt->if (expr){stmts}else{stmts}stmts
+stmt->if(expr){stmts}stmts
+stmt->if(expr){stmts}else{stmts}stmts
 stmt->while(expr){stmts}stmts
-stmt->def identifier(def_args){stmts}stmts
+stmt->defidentifier(def_args){stmts}stmts
 stmt->identifier(call_args)~stmts
 stmt->identifier=identifier(call_args)~stmts
 stmt->typeidentifier=identifier(call_args)~stmts
