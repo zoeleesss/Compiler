@@ -13,10 +13,6 @@ import java.util.*;
 public class PredictTable {
 
 
-
-
-
-
     /**
      *
      *
@@ -28,81 +24,10 @@ public class PredictTable {
      */
 
 
-    //tool functions
 
 
-    private boolean isTerminal(String src,List<String> terminals)
-    {
-
-        return terminals.contains(src);
-    }
-
-    private boolean isNonTerminal(String src,List<String> nonTerminals)
-    {
-
-        return nonTerminals.contains(src);
-    }
-
-    /**
-     *
-     * vector.get(0)    ->  a string like + or if
-     * vector.get(1)    ->  a string = terminal or nonTerminal
-     *
-     * @param src
-     * @param terminals
-     * @param nonTerminals
-     * @return
-     */
-
-    private Vector<String> getTerminalOrNonTerminal(String src,List<String> terminals,List<String> nonTerminals)
-    {
-        String str=src.charAt(0)+"";
-        int i=1;
-        while (i<src.length())
-        {
-            str+=src.charAt(i)+"";
-            i++;
 
 
-            if (isTerminal(str,terminals))
-            {
-                Vector<String> v=new Vector<>();
-                v.add(str);
-                v.add("terminal");
-                return v;
-            }else if(isNonTerminal(str,nonTerminals))
-            {
-                Vector<String> v=new Vector<>();
-                v.add(str);
-                v.add("nonTerminal");
-                return v;
-            }
-
-        }
-        return null;
-
-    }
-
-
-    /**
-     *
-     *  add a generator into table :  Table[A,+]=generator
-     * @param table
-     * @param nonTerminal
-     * @param terminal
-     * @param generator
-     * @param terminals
-     * @param nonTerminals
-     */
-
-    private void fillAContentInTable(String [][]table,String nonTerminal,String terminal,String generator,List<String> terminals,List<String> nonTerminals)
-    {
-
-        int non_terminal_index=nonTerminals.indexOf(nonTerminal);
-        int terminal_index=terminals.indexOf(terminal);
-        table[non_terminal_index][terminal_index]=generator;
-
-    }
 
 
     /**
@@ -143,12 +68,9 @@ public class PredictTable {
         table= new String[nonTerminals.size()][terminals.size()];
 
 
-
-
         Iterator<Map.Entry<String,List<String>>> it=generators.entrySet().iterator();
 
-
-        // for each nonTerminal : derive many generators like S :  S-> A , S-> B
+        /*** for each nonTerminal : derive many generators like S :  S-> A , S-> B ***/
         while(it.hasNext()){
             Map.Entry<String,List<String>> entry=it.next();
 
@@ -158,7 +80,7 @@ public class PredictTable {
 
 
 
-            // for each non-terminal , get the generators like A->if(B){A}~
+            /*** for each non-terminal , get the generators like A->if(B){A}A  ***/
             while (nt_generators.iterator().hasNext())
             {
                 // get A->if(B){A}~
@@ -167,8 +89,9 @@ public class PredictTable {
                 // get if(B){A}~
                 String right_hand_token=t.split("->")[1];
 
-                //get terminal 'if' or nonterminal  maybe ?
-                Vector<String> vec=getTerminalOrNonTerminal(right_hand_token,terminals,nonTerminals);
+                //get terminal 'if' or nonTerminal  maybe ?
+                ParserUtil util=ParserUtil.getInstance();
+                Vector<String> vec=util.getTerminalOrNonTerminalOfFirstCharacters(right_hand_token,terminals,nonTerminals);
 
                 String str="",type="";
 
@@ -177,72 +100,141 @@ public class PredictTable {
                     type = vec.get(1);
                 }catch (NullPointerException e)
                 {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+
+                    /**   it couldnt find either terminal or nonTerminal
+                     *
+                     *  Situation 1: wrong input
+                     *  Situation 2: A->null
+                     *
+                     * **/
+
+                    if (right_hand_token.equals("null"))
+                    {
+                        /** Add Follow Set **/
+                        // get terminals of FollowSet of T
+                        List<String> follow_terminals = followSet.get(nt);
+
+                        // for each terminal t in Follow(A) add to table[A,t] with generator A->null
+                        for (int i = 0; i < follow_terminals.size(); i++) {
+                            String temp_follow_terminal = follow_terminals.get(i);
+                            if (!temp_follow_terminal.equals("null"))
+                                util.fillAContentInTable(table, nt, temp_follow_terminal, t, terminals, nonTerminals);
+
+                        }
+                    }
+                    else {
+                        System.err.println("ERROR! wrong input: "+right_hand_token);
+
+                    }
+
                 }
 
 
+             /**   Consider First Set             **/
+
+                /**     e.g. A->+FD            **/
+                //the first part of the right part of generator like if, +    see below
                 if (type.equals("terminal")) {
 
-                    // add if    table[A][if]  =  A->if{B}{A}~
-                     fillAContentInTable(table,nt,str,t,terminals,nonTerminals);
+                    // e.g. add if    table[A][if]  =  A->if{B}{A}
+                    // or e.g. add +  table[A][+] = A->+FD
+                    //table = table[][] ,nt = nonTerminal (A) , str = Terminal(if),t = generator(A->if(B){A}~), the rest are same.
+                     util.fillAContentInTable(table,nt,str,t,terminals,nonTerminals);
 
 
                      /*** e.g  T->FD ***/
                 } else if (type.equals("nonTerminal")) {
 
-                    /*** for each terminal t in First(FD) , add Table[T,t] = generator  ***/
+                    /*** for each terminal t in First(FD) or First(right_hand_token), add Table[T,t] = generator  ***/
+
+                    boolean isContainsNullInFirst = false;
+                    // e.g F
+                    String per_non_terminal = right_hand_token.charAt(0) + "";
+                    int index_of_r = 0;
+                    while (!per_non_terminal.isEmpty()) {
+
+                        // F is nonTerminal
+                        if (util.isNonTerminal(per_non_terminal, nonTerminals)) {
+
+                            // First(F)={+,),null}
+                            List<String> firsts = firstSet.get(per_non_terminal);
+
+                            for (int i = 0; i < firsts.size(); i++) {
+                                // if it is null, set flag
+                                if (firsts.get(i).equals("null")) {
+                                    isContainsNullInFirst = true;
+                                }
+                                // if it is not null, add to table
+                                else {
+                                    util.fillAContentInTable(table, nt, firsts.get(i), t, terminals, nonTerminals);
+
+                                }
+
+                            }
+
+                            // a nonTerminal is done ,go on e.g.  A->FD , F is done , now deal with D
+                            try {
+                                index_of_r++;
+                                per_non_terminal = right_hand_token.charAt(index_of_r) + "";
+                            } catch (NullPointerException e) {
+                                //it is already the end, so break
+                                per_non_terminal = "";
+                                break;
+                            }
 
 
+                            // if is terminal
+                        } else if (util.isTerminal(per_non_terminal, terminals))
+                        //e.g. A->F+D
+                        {
+                            if (isContainsNullInFirst)
+                            //null is in F , so add +
+                            {
+                                util.fillAContentInTable(table, nt, per_non_terminal, t, terminals, nonTerminals);
+                                break;
+                            } else {
+                                // A->if(B) wont happen here because see above , we've already dealt with it(added into the table)
+                                // null is not in F , so do nothing further
 
+                                break;
+                            }
 
+                        } else {
+                            // not a terminal or either a nonTerminal like 'i' still needs 'f' to become 'if'
+                            index_of_r++;
+                            per_non_terminal += right_hand_token.charAt(index_of_r);
 
-
-
-                    /*** if (null is in First(FD)) , for each terminals t in Follow(T) , add Table[T,t] = generator ***/
-
-
-                    // get terminals of FollowSet of T
-                    List<String> follow_terminals=followSet.get(nt);
-
-                    for(int i=0;i<follow_terminals.size();i++)
-                    {
-                       String temp_follow_terminal=follow_terminals.get(i);
-                       fillAContentInTable(table,nt,temp_follow_terminal,t,terminals,nonTerminals);
-
+                        }
                     }
 
 
+                    /**   Consider Follow Set             **/
 
+                    /*** if (null is in First(FD)) , for each terminals t in Follow(T) , add Table[T,t] = generator ***/
+
+                    // FD can derive null, not directly equals to null
+                    if (isContainsNullInFirst) {
+
+                        // get terminals of FollowSet of T
+                        List<String> follow_terminals = followSet.get(nt);
+
+                        for (int i = 0; i < follow_terminals.size(); i++) {
+                            String temp_follow_terminal = follow_terminals.get(i);
+                            if (!temp_follow_terminal.equals("null"))
+                                util.fillAContentInTable(table, nt, temp_follow_terminal, t, terminals, nonTerminals);
+
+                        }
+
+                    }
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             }
 
 
-
-
-
-
-
-
-
-            System.out.println("key="+entry.getKey()+","+"value="+entry.getValue());
+            //System.out.println("key="+entry.getKey()+","+"value="+entry.getValue());
         }
-
+        printTable(table,nonTerminals.size(),terminals.size());
         return table;
     }
 
@@ -265,11 +257,5 @@ public class PredictTable {
     }
 
 
-
-    public static void main(String[] args) {
-
-
-
-    }
 
 }
