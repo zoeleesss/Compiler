@@ -1,0 +1,48 @@
+program->function_definition program'
+program'->function_definition program'|$
+function_definition->type_specifier declarator_func compound_statement 
+type_specifier->VOID|CHAR|INT|FLOAT
+declarator_func->ID dec'
+declarator->ID dec
+dec->[ DIGIT ]|$
+dec'->( declarator'|$
+declarator'->parameter_list )|)
+parameter_list->parameter_declaration parameter_list'
+parameter_list'->, parameter_declaration parameter_list'|$
+parameter_declaration->declaration_specifiers ID
+declaration_specifiers->CHAR|INT|FLOAT
+compound_statement->{ compound_statement'
+compound_statement'->statement_list }|declaration_list statement_list }|}
+declaration_list->declaration declaration_list'
+declaration_list'->declaration declaration_list'|$
+declaration->declaration_specifiers init_declarator declaration'
+declaration'->, init_declarator declaration'|$
+init_declarator->declarator init_declarator'
+init_declarator'->= initializer|$
+initializer->relational_expression|{ initializer_list }
+initializer_list->initializer initializer_list'
+initializer_list'->, initializer , initializer_list'|$
+statement_list->statement statement_list'
+statement_list'->statement statement_list'|$
+statement->compound_statement|expression_statement|selection_statement|iteration_statement|declaration_list|jump_statement
+jump_statement->CONTINUE ;|BREAK ;|RETURN jump_statement'
+jump_statement'->;|expression ;
+selection_statement->IF ( expression ) compound_statement selection_statement'
+selection_statement'->ELSE statement|$
+iteration_statement->WHILE ( expression ) statement|FOR ( expression_statement expression_statement expression ) statement
+expression->relational_expression expression'
+expression'->, relational_expression expression'|$
+expression_statement->;|expression ;
+relational_expression->additive_expression relational_expression'
+relational_expression'->< additive_expression relational_expression'|> additive_expression relational_expression'|!= additive_expression relational_expression'|== additive_expression relational_expression'|= additive_expression relational_expression'|$
+additive_expression->multiplicative_expression additive_expression'
+additive_expression'->+ multiplicative_expression additive_expression'|- multiplicative_expression additive_expression'|++|--|$
+multiplicative_expression->postfix_expression multiplicative_expression'|DIGIT multiplicative_expression'|FRACTION multiplicative_expression'
+multiplicative_expression'->* postfix_expression multiplicative_expression'|/ postfix_expression multiplicative_expression'|$
+postfix_expression->primary_expression postfix_expression'
+postfix_expression'->[ expression ]|$
+pe'->$|const_list
+primary_expression->ID|( expression )|DIGIT|FRACTION|CHARACTER
+const->DIGIT|FRACTION|CHARACTER
+const_list->const const_list'
+const_list'->, const const_list'|$

@@ -1,0 +1,17 @@
+program->stmts
+stmts->stmt stmts|$
+stmt->identifier identification ~|type identifier identification ~|<< expr ~|if ( expr ) { stmts } if_right_part
+stmt->break ~|while ( expr ) { stmts }|return expr ~|def identifier ( def_args ) { stmts }
+if_right_part->else { stmts }|$
+def_args->type identifier def_arg|$
+def_arg->, def_args|$
+call_args->expr call_arg|$
+call_arg->, call_args|$
+identification->= expr|( call_args )
+expr->T E'
+E'->+ T E'|- T E'|$
+T->F T'
+T'->* F T'|/ F T'|$
+F->( expr )|DIGIT|identifier assignment_right
+assignment_right->( call_args )|$
+type->int|double

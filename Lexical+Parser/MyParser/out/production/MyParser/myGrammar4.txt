@@ -1,0 +1,45 @@
+program->function_definition program'
+program'->function_definition program'|$
+function_definition->type_specifier declarator_func compound_statement 
+type_specifier->int|double
+declarator_func->identifier dec'
+declarator->identifier dec
+dec->[ DIGIT ]|$
+dec'->( declarator'|$
+declarator'->parameter_list )|)
+parameter_list->parameter_declaration parameter_list'
+parameter_list'->, parameter_declaration parameter_list'|$
+parameter_declaration->declaration_specifiers identifier
+declaration_specifiers->int|double
+compound_statement->{ compound_statement'
+compound_statement'->statement_list }|declaration_list statement_list }|}
+declaration_list->declaration declaration_list'
+declaration_list'->declaration declaration_list'|$
+declaration->declaration_specifiers init_declarator declaration'
+declaration'->, init_declarator declaration'|$
+init_declarator->declarator init_declarator'
+init_declarator'->= initializer|$
+initializer->relational_expression|{ initializer_list }
+initializer_list->initializer initializer_list'
+initializer_list'->, initializer , initializer_list'|$
+statement_list->statement statement_list'
+statement_list'->statement statement_list'|$
+statement->compound_statement|expression_statement|selection_statement|iteration_statement|declaration_list
+selection_statement->if ( expression ) compound_statement selection_statement'
+selection_statement'->else statement|$
+iteration_statement->for ( expression_statement expression_statement expression ) statement
+expression->relational_expression expression'
+expression'->, relational_expression expression'|$
+expression_statement->~|expression ~
+relational_expression->additive_expression relational_expression'
+relational_expression'->= additive_expression relational_expression'|$
+additive_expression->multiplicative_expression additive_expression'
+additive_expression'->+ multiplicative_expression additive_expression'|- multiplicative_expression additive_expression'|$
+multiplicative_expression->postfix_expression multiplicative_expression'|DIGIT multiplicative_expression'
+multiplicative_expression'->* postfix_expression multiplicative_expression'|/ postfix_expression multiplicative_expression'|$
+postfix_expression->primary_expression postfix_expression'
+postfix_expression'->[ expression ]|$
+primary_expression->identifier|( expression )|DIGIT
+const->DIGIT
+const_list->const const_list'
+const_list'->, const const_list'|$
